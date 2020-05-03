@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.test.b2schoolarithmetic.databinding.LoginFragmentBinding
 import com.test.b2schoolarithmetic.presentation.LoginViewModel
 import org.kodein.di.Kodein
@@ -34,15 +36,52 @@ class LoginFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpLoginButton()
+        setupLoginButton()
+        setupProgressBar()
+        observeErrorEvent()
+        observeAuthorizedEvent()
     }
 
-    private fun setUpLoginButton() {
+    private fun observeErrorEvent() {
+        viewModel.errorEvent.observe(viewLifecycleOwner, Observer {event ->
+            event.getContentIfNotHandled()?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun observeAuthorizedEvent() {
+        viewModel.authorizedGameEvent.observe(viewLifecycleOwner, Observer { event ->
+            event?.getContentIfNotHandled()?.let {
+                // TODO: go to content fragment
+            }
+        })
+    }
+
+    private fun setupLoginButton() {
         binding.loginButton.setOnClickListener {
             viewModel.login(
                 binding.loginEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
+        }
+    }
+
+    private fun setupProgressBar() {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { showProgress(it) })
+    }
+
+    private fun showProgress(state: Boolean) {
+        fun hideView(viewState: Boolean): Int = if (viewState) View.GONE else View.VISIBLE
+
+        with(binding) {
+            imageView.visibility = hideView(state)
+            titleTextView.visibility = hideView(state)
+            loginTextInputLayout.visibility = hideView(state)
+            passwordTextInputLayout.visibility = hideView(state)
+            loginButton.visibility = hideView(state)
+            registerTextView.visibility = hideView(state)
+            progressBar.visibility = hideView(!state)
         }
     }
 }

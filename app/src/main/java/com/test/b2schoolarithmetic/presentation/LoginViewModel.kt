@@ -10,9 +10,18 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _authorizedGameEvent = MutableLiveData<Event<Unit>>()
+    val authorizedGameEvent: LiveData<Event<Unit>> = _authorizedGameEvent
+
+    private val _errorCreateEvent = MutableLiveData<Event<Int>>()
+    val errorEvent: LiveData<Event<Int>> = _errorCreateEvent
+
     fun login(phone: String, password: String) {
         viewModelScope.launch {
+            _isLoading.value = true
             loginRepository.login(phone, password)
+            _authorizedGameEvent.value = Event(Unit)
+            _isLoading.value = false
         }
     }
 
