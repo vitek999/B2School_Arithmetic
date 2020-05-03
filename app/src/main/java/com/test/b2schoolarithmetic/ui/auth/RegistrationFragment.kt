@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.test.b2schoolarithmetic.databinding.RegistrationFragmentBinding
 import com.test.b2schoolarithmetic.presentation.RegistrationViewModel
 import org.kodein.di.Kodein
@@ -34,5 +35,10 @@ class RegistrationFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupBackNavigation()
+    }
+
+    private fun setupBackNavigation() {
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
     }
 }
