@@ -9,5 +9,14 @@
         android:id="@+id/loginFragment"
         android:name="com.test.b2schoolarithmetic.ui.auth.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/login_fragment"/>
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.test.b2schoolarithmetic.ui.auth.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/registration_fragment"/>
 </navigation>

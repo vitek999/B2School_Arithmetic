@@ -3,6 +3,9 @@ package com.test.b2schoolarithmetic.data.repository
 
 import com.test.b2schoolarithmetic.data.Result
 import com.test.b2schoolarithmetic.data.UserManager
+import com.test.b2schoolarithmetic.data.domain.user.RegisterUser
+import com.test.b2schoolarithmetic.data.domain.user.UserType
+import com.test.b2schoolarithmetic.data.domain.user.toDto
 import com.test.b2schoolarithmetic.data.remote.endpoints.UserEndpoints
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -24,4 +27,17 @@ class LoginRepositoryImpl(
                 Result.Error(e)
             }
         }
+
+    override suspend fun register(userType: UserType, newUser: RegisterUser): Result<Unit> = withContext(ioDispatcher) {
+        val response = when(userType) {
+            UserType.PARENT -> userEndpoints.registerParent(newUser.toDto())
+            UserType.STUDENT -> userEndpoints.registerStudent(newUser.toDto())
+            UserType.TEACHER -> userEndpoints.registerTeacher(newUser.toDto())
+        }
+        return@withContext try {
+            if(response.code() == 409) Result.Error(Exception("Wrong registration params")) else Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }

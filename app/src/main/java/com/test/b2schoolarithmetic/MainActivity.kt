@@ -1,11 +1,10 @@
 package com.test.b2schoolarithmetic
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,10 +14,10 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        val destinationsWithHideKeyboard = listOf(R.id.loginFragment)
+        val destinationsWithHideKeyboard = listOf(R.id.loginFragment, R.id.registrationFragment)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            bottom_navigation.visibility = if(destination.id in destinationsWithHideKeyboard) View.GONE else View.VISIBLE
+            bottom_navigation.visibility = if (destination.id in destinationsWithHideKeyboard) View.GONE else View.VISIBLE
         }
     }
 }

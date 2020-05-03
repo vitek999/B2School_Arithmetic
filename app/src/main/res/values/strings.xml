@@ -10,4 +10,9 @@
     <string name="statistic_page_menu_title">Статистика</string>
     <string name="account_page_menu_title">Аккаунт</string>
     <string name="authorization_error">Ошибка авторизации</string>
+    <string name="registration_wrong_data">Некорректные данные</string>
+    <string name="registration">Регистрация</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="repeat_password">Повторить пароль</string>
 </resources>

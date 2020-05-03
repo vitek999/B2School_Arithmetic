@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.test.b2schoolarithmetic.R
 import com.test.b2schoolarithmetic.databinding.LoginFragmentBinding
 import com.test.b2schoolarithmetic.presentation.LoginViewModel
 import org.kodein.di.Kodein
@@ -39,6 +41,7 @@ class LoginFragment : Fragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
         setupLoginButton()
         setupProgressBar()
+        setupRegistrationButtoon()
         observeErrorEvent()
         observeAuthorizedEvent()
     }
@@ -54,7 +57,7 @@ class LoginFragment : Fragment(), KodeinAware {
     private fun observeAuthorizedEvent() {
         viewModel.authorizedGameEvent.observe(viewLifecycleOwner, Observer { event ->
             event?.getContentIfNotHandled()?.let {
-                // TODO: go to content fragment
+
             }
         })
     }
@@ -65,6 +68,12 @@ class LoginFragment : Fragment(), KodeinAware {
                 binding.loginEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
+        }
+    }
+
+    private fun setupRegistrationButtoon() {
+        binding.registerTextView.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
         }
     }
 
