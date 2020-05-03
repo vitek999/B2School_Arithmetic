@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.test.b2schoolarithmetic.ui.auth.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/registration_fragment"/>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.test.b2schoolarithmetic.ui.auth.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment"/>
 </navigation>

@@ -1,5 +1,6 @@
 package com.test.b2schoolarithmetic.data.remote
 
+import com.test.b2schoolarithmetic.data.remote.endpoints.ExerciseEndpoints
 import com.test.b2schoolarithmetic.data.remote.endpoints.UserEndpoints
 import com.test.b2schoolarithmetic.data.remote.iterceptors.AuthInterceptor
 import okhttp3.OkHttpClient
@@ -16,6 +17,7 @@ val networkKodeinModule = Kodein.Module("NetworkKodeinModule") {
     bind<OkHttpClient>() with singleton { provideOkHttpClient(instance()) }
     bind<Retrofit>() with singleton { provideRetrofit(instance(tag = "BASE_URL"), instance()) }
     bind<UserEndpoints>() with singleton { instance<Retrofit>().create(UserEndpoints::class.java) }
+    bind<ExerciseEndpoints>() with singleton { instance<Retrofit>().create(ExerciseEndpoints::class.java) }
 }
 
 private fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {

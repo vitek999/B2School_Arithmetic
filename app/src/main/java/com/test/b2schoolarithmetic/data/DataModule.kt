@@ -1,6 +1,8 @@
 package com.test.b2schoolarithmetic.data
 
 import com.test.b2schoolarithmetic.data.remote.networkKodeinModule
+import com.test.b2schoolarithmetic.data.repository.ExerciseRepository
+import com.test.b2schoolarithmetic.data.repository.ExerciseRepositoryImpl
 import com.test.b2schoolarithmetic.data.repository.LoginRepository
 import com.test.b2schoolarithmetic.data.repository.LoginRepositoryImpl
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,4 +18,5 @@ val dataKodeinModule = Kodein.Module("DataKodeinModule"){
     bind<CoroutineDispatcher>() with provider { Dispatchers.IO }
     bind<UserManager>() with singleton { UserManager(instance()) }
     bind<LoginRepository>() with singleton { LoginRepositoryImpl(instance(), instance(), instance()) }
+    bind<ExerciseRepository>() with singleton { ExerciseRepositoryImpl(instance(), instance()) }
 }

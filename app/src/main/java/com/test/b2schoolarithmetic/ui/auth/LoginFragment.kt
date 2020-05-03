@@ -57,7 +57,7 @@ class LoginFragment : Fragment(), KodeinAware {
     private fun observeAuthorizedEvent() {
         viewModel.authorizedGameEvent.observe(viewLifecycleOwner, Observer { event ->
             event?.getContentIfNotHandled()?.let {
-
+                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             }
         })
     }
