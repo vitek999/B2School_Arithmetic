@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">B2School Arithmetic</string>
+    <string name="enter_login">Введите логин</string>
+    <string name="password">Пароль</string>
+    <string name="authorize">Авторизоваться</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="Authorization">Войти в B2School</string>
+    <string name="login">Логин</string>
 </resources>
