@@ -23,7 +23,11 @@ import org.kodein.di.generic.instance
 class RegistrationFragment : Fragment(), KodeinAware {
 
     private lateinit var binding: RegistrationFragmentBinding
-    private val viewModel : RegistrationViewModel by viewModels { RegistrationViewModel.Factory(direct.instance()) }
+    private val viewModel: RegistrationViewModel by viewModels {
+        RegistrationViewModel.Factory(
+            direct.instance()
+        )
+    }
 
     override lateinit var kodein: Kodein
 
@@ -51,7 +55,8 @@ class RegistrationFragment : Fragment(), KodeinAware {
 
     private fun setupUserTypesSpinner() {
         val list = listOf(UserType.STUDENT, UserType.PARENT, UserType.TEACHER)
-        binding.userTypeSpinner.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, list)
+        binding.userTypeSpinner.adapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, list)
     }
 
     private fun setupProgress() {
@@ -76,7 +81,8 @@ class RegistrationFragment : Fragment(), KodeinAware {
         viewModel.successRegistration.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 findNavController().navigateUp()
-                Snackbar.make(requireView(), R.string.success_registration, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), R.string.success_registration, Snackbar.LENGTH_SHORT)
+                    .show()
             }
         })
     }
@@ -92,7 +98,7 @@ class RegistrationFragment : Fragment(), KodeinAware {
                 )
             }
             val userType = binding.userTypeSpinner.selectedItem as UserType
-            viewModel.registration(userType, newUser)
+            if(isValidData()) viewModel.registration(userType, newUser)
         }
     }
 
@@ -103,5 +109,53 @@ class RegistrationFragment : Fragment(), KodeinAware {
             registrationScrollView.visibility = hideView(state)
             progressBar.visibility = hideView(!state)
         }
+    }
+
+    private fun isValidData(): Boolean {
+        var isValid = true
+
+        if (binding.firstNameEditText.text.isNullOrBlank()) {
+            binding.firstNameTextInputLayout.error = getString(R.string.field_cant_be_blank)
+            isValid = false
+        } else {
+            binding.firstNameTextInputLayout.error = ""
+        }
+
+        if (binding.lastNameEditText.text.isNullOrBlank()) {
+            binding.lastNameTextInputLayout.error = getString(R.string.field_cant_be_blank)
+            isValid = false
+        } else {
+            binding.lastNameTextInputLayout.error = ""
+        }
+
+        if (binding.loginEditText.text.isNullOrBlank()) {
+            binding.loginTextInputLayout.error = getString(R.string.field_cant_be_blank)
+            isValid = false
+        } else {
+            binding.loginTextInputLayout.error = ""
+        }
+
+        if (binding.passwordEditText.text.isNullOrBlank()) {
+            binding.passwordTextInputLayout.error = getString(R.string.field_cant_be_blank)
+            isValid = false
+        } else {
+            binding.passwordTextInputLayout.error = ""
+        }
+
+        if(binding.repeatPasswordEditText.text.toString() != binding.passwordEditText.text.toString()) {
+            binding.repeatPasswordTextInputLayout.error = "Пароли не совпадают"
+            isValid = false
+        } else {
+            binding.repeatPasswordTextInputLayout.error = ""
+        }
+
+        if (isValid && binding.repeatPasswordEditText.text.isNullOrBlank()) {
+            binding.repeatPasswordTextInputLayout.error = getString(R.string.field_cant_be_blank)
+            isValid = false
+        } else {
+            binding.repeatPasswordTextInputLayout.error = ""
+        }
+
+        return isValid
     }
 }

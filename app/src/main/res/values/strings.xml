@@ -16,4 +16,5 @@
     <string name="last_name">Фамилия</string>
     <string name="repeat_password">Повторить пароль</string>
     <string name="success_registration">Аккаунт успешно зарегестрирован!</string>
+    <string name="field_cant_be_blank">Поле не может быть пустым</string>
 </resources>
