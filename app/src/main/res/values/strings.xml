@@ -15,4 +15,5 @@
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
     <string name="repeat_password">Повторить пароль</string>
+    <string name="success_registration">Аккаунт успешно зарегестрирован!</string>
 </resources>

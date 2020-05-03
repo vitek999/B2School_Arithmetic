@@ -6,10 +6,12 @@ import okhttp3.Response
 
 class AuthInterceptor(private val userManager: UserManager) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request().newBuilder()
-            .addHeader("Authorization", userManager.token)
-            .build()
-        return chain.proceed(request)
+
+        val builder = chain.request().newBuilder()
+        if(!chain.request().url.toUrl().path.contains("registration")) {
+            builder.addHeader("Authorization", userManager.token)
+        }
+        return chain.proceed(builder.build())
     }
 
 }
