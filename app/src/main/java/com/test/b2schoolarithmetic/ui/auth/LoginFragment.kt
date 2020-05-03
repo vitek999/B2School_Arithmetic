@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.test.b2schoolarithmetic.databinding.LoginFragmentBinding
 import com.test.b2schoolarithmetic.presentation.LoginViewModel
 import org.kodein.di.Kodein
@@ -45,7 +46,7 @@ class LoginFragment : Fragment(), KodeinAware {
     private fun observeErrorEvent() {
         viewModel.errorEvent.observe(viewLifecycleOwner, Observer {event ->
             event.getContentIfNotHandled()?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
             }
         })
     }

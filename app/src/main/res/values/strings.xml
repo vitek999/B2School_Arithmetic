@@ -9,4 +9,5 @@
     <string name="main_page_menu_title">Главная</string>
     <string name="statistic_page_menu_title">Статистика</string>
     <string name="account_page_menu_title">Аккаунт</string>
+    <string name="authorization_error">Ошибка авторизации</string>
 </resources>
