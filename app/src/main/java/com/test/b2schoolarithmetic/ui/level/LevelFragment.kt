@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.test.b2schoolarithmetic.data.remote.dto.AnswerDto
 import com.test.b2schoolarithmetic.databinding.LevelFragmentBinding
 import com.test.b2schoolarithmetic.presentation.LevelViewModel
 import com.test.b2schoolarithmetic.ui.level.adapter.AnswersAdapter
@@ -49,7 +48,30 @@ class LevelFragment : Fragment(), KodeinAware {
         setupProgress()
         setUpAnswerRecyclerView()
         observeCurrentQuestion()
+        observeDataLoadedEvent()
+        observeCurrentQuestionNumber()
+        observeErrorNumber()
         viewModel.fetchQuestion()
+    }
+
+    private fun observeErrorNumber() {
+        viewModel.errorsCount.observe(viewLifecycleOwner, Observer {
+            binding.errorsTextView.text = "Ошибок $it"
+        })
+    }
+
+    private fun observeCurrentQuestionNumber() {
+        viewModel.currentQuestionNumber.observe(viewLifecycleOwner, Observer {
+            binding.progressTextView.text = "Вопрос ${it + 1} из ${viewModel.questionCount}"
+        })
+    }
+
+    private fun observeDataLoadedEvent() {
+        viewModel.dataLoadedEvent.observe(viewLifecycleOwner, Observer {event ->
+            event.getContentIfNotHandled()?.let {
+                viewModel.start()
+            }
+        })
     }
 
     private fun observeCurrentQuestion() {
@@ -60,7 +82,7 @@ class LevelFragment : Fragment(), KodeinAware {
     }
 
     private fun setUpAnswerRecyclerView() {
-        adapter = AnswersAdapter()
+        adapter = AnswersAdapter { id, isCorrect -> viewModel.setAnswer(id, isCorrect) }
         val gridLayoutManager: GridLayoutManager by instance<GridLayoutManager>()
 
         binding.answerButtonsRecyclerView.layoutManager = gridLayoutManager

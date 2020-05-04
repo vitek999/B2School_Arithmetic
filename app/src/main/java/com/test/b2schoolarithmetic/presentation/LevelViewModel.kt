@@ -25,8 +25,17 @@ class LevelViewModel(
     private val _currentQuestionNumber = MutableLiveData<Int>().apply { value = -1 }
     val currentQuestionNumber = _currentQuestionNumber
 
+    private val _dataLoadedEvent = MutableLiveData<Event<Unit>>()
+    val dataLoadedEvent: LiveData<Event<Unit>> = _dataLoadedEvent
+
     private val _currentQuestion = MutableLiveData<ExerciseDto>()
     val currentQuestion: LiveData<ExerciseDto> = _currentQuestion
+
+    private val _errorsCount = MutableLiveData<Int>().apply { value = 0 }
+    val errorsCount: LiveData<Int> = _errorsCount
+
+    var questionCount = 0
+        private set
 
     private val answers = mutableListOf<Long>()
 
@@ -44,7 +53,8 @@ class LevelViewModel(
                     answers.clear()
                     Timber.d(result.data.toString())
                     questions.addAll(result.data)
-                    _currentQuestion.value = result.data[0]
+                    questionCount = result.data.size
+                    _dataLoadedEvent.value = Event(Unit)
                 }
             } catch (e: Exception) {
 
@@ -69,7 +79,8 @@ class LevelViewModel(
         nextQuestion()
     }
 
-    fun setAnswer(answerId: Long) {
+    fun setAnswer(answerId: Long, isCorrect: Boolean) {
+        if(!isCorrect) _errorsCount.value = _errorsCount.value!!.plus(1)
         answers.add(answerId)
         nextQuestion()
     }

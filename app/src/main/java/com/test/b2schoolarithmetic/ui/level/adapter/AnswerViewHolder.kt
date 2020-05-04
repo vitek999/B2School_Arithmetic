@@ -12,7 +12,8 @@ class AnswerViewHolder private constructor(itemView: View) : RecyclerView.ViewHo
 
     private val btnAnswer: Button = itemView.findViewById(R.id.answer_button)
 
-    fun bind(item: AnswerDto) {
+    fun bind(item: AnswerDto, itemOnClick: (Long, Boolean) -> Unit) {
+        btnAnswer.setOnClickListener { itemOnClick(item.id, item.isCorrect) }
         btnAnswer.text = item.text
     }
 

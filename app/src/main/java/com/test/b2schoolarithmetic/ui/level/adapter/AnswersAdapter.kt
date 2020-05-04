@@ -4,7 +4,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.test.b2schoolarithmetic.data.remote.dto.AnswerDto
 
-class AnswersAdapter() : RecyclerView.Adapter<AnswerViewHolder>() {
+class AnswersAdapter(
+    private val itemOnClick: (Long, Boolean) -> Unit
+) : RecyclerView.Adapter<AnswerViewHolder>() {
 
     private val items: MutableList<AnswerDto> = mutableListOf()
 
@@ -15,7 +17,7 @@ class AnswersAdapter() : RecyclerView.Adapter<AnswerViewHolder>() {
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: AnswerViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], itemOnClick)
     }
 
     fun updateData(list: List<AnswerDto>) {
