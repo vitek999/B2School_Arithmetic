@@ -1,13 +1,11 @@
 package com.test.b2schoolarithmetic.ui.main.di
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.test.b2schoolarithmetic.ui.main.adapter.LevelsListAdapter
 import com.test.b2schoolarithmetic.ui.main.adapter.viewholder.LevelItemViewHolderFactory
 import com.test.b2schoolarithmetic.ui.main.adapter.viewholder.ListItemViewHolderFactory
 import com.test.b2schoolarithmetic.ui.main.adapter.viewholder.ThemeViewHolderFactory
 import com.test.b2schoolarithmetic.ui.main.vo.ListItem
 import org.kodein.di.Kodein
-import org.kodein.di.direct
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.factory
 import org.kodein.di.generic.instance
@@ -16,7 +14,6 @@ import java.lang.IllegalStateException
 
 val levelsKodeinModule = Kodein.Module("LevelsKodeinModule"){
     bind<LinearLayoutManager>() with singleton { LinearLayoutManager(instance()) }
-    bind<LevelsListAdapter>() with singleton { LevelsListAdapter(kodein.direct) }
     bind<ListItemViewHolderFactory>() with factory { type: Int ->
         when(type) {
             ListItem.TYPE_HEADER -> ThemeViewHolderFactory()

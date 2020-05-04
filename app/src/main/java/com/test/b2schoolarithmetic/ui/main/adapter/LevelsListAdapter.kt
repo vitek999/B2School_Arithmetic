@@ -10,13 +10,14 @@ import org.kodein.di.DKodein
 import org.kodein.di.generic.instance
 
 class LevelsListAdapter(
-    private val kodein: DKodein
+    private val kodein: DKodein,
+    private val onItemClick: (Long) -> Unit
 ) : RecyclerView.Adapter<ListItemViewHolder>() {
 
     private val items = mutableListOf<ListItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
-        return kodein.instance<Int, ListItemViewHolderFactory>(arg = viewType).createViewHolder(parent)
+        return kodein.instance<Int, ListItemViewHolderFactory>(arg = viewType).createViewHolder(parent, onItemClick)
     }
 
     override fun getItemCount(): Int = items.size

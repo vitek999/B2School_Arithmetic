@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,6 +30,7 @@ class MainFragment : Fragment(), KodeinAware {
     private lateinit var binding: MainFragmentBinding
     private val viewModel: MainViewModel by viewModels { MainViewModel.Factory(direct.instance()) }
     override lateinit var kodein: Kodein
+    private lateinit var adapter: LevelsListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,10 +56,12 @@ class MainFragment : Fragment(), KodeinAware {
     }
 
     private fun setupLevelsRecyclerView() {
-        val levelsListAdapter: LevelsListAdapter by instance<LevelsListAdapter>()
+        adapter = LevelsListAdapter(kodein.direct) {
+            // TODO: navigate to test screen
+        }
         val linearLayoutManager: LinearLayoutManager by instance<LinearLayoutManager>()
 
-        binding.levelsRecyclerView.adapter = levelsListAdapter
+        binding.levelsRecyclerView.adapter = adapter
         binding.levelsRecyclerView.layoutManager = linearLayoutManager
     }
 
@@ -77,8 +81,6 @@ class MainFragment : Fragment(), KodeinAware {
 
     private fun observeThemes() {
         viewModel.themes.observe(viewLifecycleOwner, Observer {
-            val levelsListAdapter: LevelsListAdapter by instance<LevelsListAdapter>()
-
             val newData: MutableList<ListItem> = mutableListOf()
 
             for (theme in it) {
@@ -95,7 +97,7 @@ class MainFragment : Fragment(), KodeinAware {
                 })
             }
 
-            levelsListAdapter.updateData(newData)
+            adapter.updateData(newData)
         })
     }
 

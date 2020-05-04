@@ -4,14 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.test.b2schoolarithmetic.R
 import com.test.b2schoolarithmetic.ui.main.vo.LevelListItem
 import com.test.b2schoolarithmetic.ui.main.vo.ListItem
 
-class LevelItemViewHolder(parent: ViewGroup) : ListItemViewHolder(
+class LevelItemViewHolder(parent: ViewGroup, private val onItemClick: (Long) -> Unit) : ListItemViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.theme_level_list_item, parent, false)
 ) {
 
+    private val rootLayout = itemView.findViewById<ConstraintLayout>(R.id.rootLayout)
     private val tvLevelName: TextView = itemView.findViewById(R.id.level_name_text_view)
     private val tvLevelDescription: TextView =
         itemView.findViewById(R.id.level_description_text_view)
@@ -25,6 +27,7 @@ class LevelItemViewHolder(parent: ViewGroup) : ListItemViewHolder(
         levelListItem.isGood?.let {ivTestQuality.setImageResource(if (it) R.drawable.ic_good_test else R.drawable.ic_bad_test)}
         if(levelListItem.isGood == null) ivTestQuality.setImageDrawable(null)
         ivTestComplete.setImageResource(if (levelListItem.isDone) R.drawable.ic_autorenew else R.drawable.ic_play_arrow)
+        rootLayout.setOnClickListener { onItemClick(item.levelId) }
     }
 
 }
