@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="55dp">
+    android:layout_height="45dp"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/level_name_text_view"
@@ -11,16 +12,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textColor="@android:color/black"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Уровень 1."/>
+        tools:text="Уровень 1." />
 
     <TextView
         android:id="@+id/level_description_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/level_name_text_view"
         app:layout_constraintStart_toEndOf="@+id/level_name_text_view"
         tools:text="Сложение чисел" />
@@ -43,5 +46,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/test_complete_image_view"
         app:layout_constraintEnd_toStartOf="@+id/test_complete_image_view"
         app:layout_constraintTop_toTopOf="@+id/test_complete_image_view"
-        app:srcCompat="@drawable/ic_good_test" />
+        tools:srcCompat="@drawable/ic_good_test" />
 </androidx.constraintlayout.widget.ConstraintLayout>

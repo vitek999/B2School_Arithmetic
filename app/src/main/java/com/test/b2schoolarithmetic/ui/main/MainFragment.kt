@@ -81,9 +81,18 @@ class MainFragment : Fragment(), KodeinAware {
 
             val newData: MutableList<ListItem> = mutableListOf()
 
-            for(theme in it) {
+            for (theme in it) {
                 newData.add(ThemeHeader(theme.name, theme.description))
-                newData.addAll(theme.levels.map { level -> LevelListItem(level.id, level.name, "desc", true, true) })
+                newData.addAll(theme.levels.map { level ->
+                    LevelListItem(
+                        level.id,
+                        level.name,
+                        level.levelNumber,
+                        "desc",
+                        level.userLevelDto?.successfullyPassed,
+                        level.userLevelDto != null
+                    )
+                })
             }
 
             levelsListAdapter.updateData(newData)

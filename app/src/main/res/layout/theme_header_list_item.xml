@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="55dp">
+    android:layout_height="55dp"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/theme_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Тема 1."/>
+        tools:text="Тема 1." />
 
     <TextView
         android:id="@+id/theme_description_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/theme_name_text_view"
-        app:layout_constraintStart_toEndOf="@+id/theme_name_text_view"
+        app:layout_constraintStart_toStartOf="@+id/theme_name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/theme_name_text_view"
         tools:text="Дроби и проценты" />
 
     <ImageView

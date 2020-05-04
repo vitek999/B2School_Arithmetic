@@ -10,5 +10,8 @@ data class LevelDto(
     val name: String,
 
     @SerializedName("levelNumber")
-    val levelNumber: Int
+    val levelNumber: Int,
+
+    @SerializedName("userLevelDto")
+    val userLevelDto: UserLevelDto?
 )

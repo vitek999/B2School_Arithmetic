@@ -20,9 +20,10 @@ class LevelItemViewHolder(parent: ViewGroup) : ListItemViewHolder(
 
     override fun bind(item: ListItem) {
         val levelListItem = item as LevelListItem
-        tvLevelName.text = levelListItem.name
-        tvLevelDescription.text = levelListItem.description
-        ivTestQuality.setImageResource(if (levelListItem.isGood) R.drawable.ic_good_test else R.drawable.ic_bad_test)
+        tvLevelName.text = "Уровень ${item.levelNumber}"
+        tvLevelDescription.text = levelListItem.name
+        levelListItem.isGood?.let {ivTestQuality.setImageResource(if (it) R.drawable.ic_good_test else R.drawable.ic_bad_test)}
+        if(levelListItem.isGood == null) ivTestQuality.setImageDrawable(null)
         ivTestComplete.setImageResource(if (levelListItem.isDone) R.drawable.ic_autorenew else R.drawable.ic_play_arrow)
     }
 
