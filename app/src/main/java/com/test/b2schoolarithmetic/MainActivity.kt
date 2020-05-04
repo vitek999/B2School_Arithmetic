@@ -14,10 +14,12 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        val destinationsWithHideKeyboard = listOf(R.id.loginFragment, R.id.registrationFragment)
+        val destinationsWithHideKeyboard =
+            listOf(R.id.loginFragment, R.id.registrationFragment, R.id.levelFragment)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            bottom_navigation.visibility = if (destination.id in destinationsWithHideKeyboard) View.GONE else View.VISIBLE
+            bottom_navigation.visibility =
+                if (destination.id in destinationsWithHideKeyboard) View.GONE else View.VISIBLE
         }
     }
 }

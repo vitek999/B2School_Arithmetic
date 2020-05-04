@@ -39,5 +39,8 @@
         <argument
             android:name="levelId"
             app:argType="long" />
+        <argument
+            android:name="levelTitle"
+            app:argType="string" />
     </fragment>
 </navigation>

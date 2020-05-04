@@ -58,8 +58,8 @@ class MainFragment : Fragment(), KodeinAware {
     }
 
     private fun setupLevelsRecyclerView() {
-        adapter = LevelsListAdapter(kodein.direct) {
-            val action = MainFragmentDirections.actionMainFragmentToLevelFragment(it)
+        adapter = LevelsListAdapter(kodein.direct) { id, levelName ->
+            val action = MainFragmentDirections.actionMainFragmentToLevelFragment(id, levelName)
             findNavController().navigate(action)
         }
         val linearLayoutManager: LinearLayoutManager by instance<LinearLayoutManager>()

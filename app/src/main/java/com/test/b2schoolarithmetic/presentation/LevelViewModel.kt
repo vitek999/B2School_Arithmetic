@@ -44,6 +44,7 @@ class LevelViewModel(
                     answers.clear()
                     Timber.d(result.data.toString())
                     questions.addAll(result.data)
+                    _currentQuestion.value = result.data[0]
                 }
             } catch (e: Exception) {
 

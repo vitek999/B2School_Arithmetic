@@ -9,7 +9,7 @@ import com.test.b2schoolarithmetic.R
 import com.test.b2schoolarithmetic.ui.main.vo.LevelListItem
 import com.test.b2schoolarithmetic.ui.main.vo.ListItem
 
-class LevelItemViewHolder(parent: ViewGroup, private val onItemClick: (Long) -> Unit) : ListItemViewHolder(
+class LevelItemViewHolder(parent: ViewGroup, private val onItemClick: (Long, String) -> Unit) : ListItemViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.theme_level_list_item, parent, false)
 ) {
 
@@ -22,12 +22,13 @@ class LevelItemViewHolder(parent: ViewGroup, private val onItemClick: (Long) -> 
 
     override fun bind(item: ListItem) {
         val levelListItem = item as LevelListItem
-        tvLevelName.text = "Уровень ${item.levelNumber}"
+        val levelName = "Уровень ${item.levelNumber}. "
+        tvLevelName.text = levelName
         tvLevelDescription.text = levelListItem.name
         levelListItem.isGood?.let {ivTestQuality.setImageResource(if (it) R.drawable.ic_good_test else R.drawable.ic_bad_test)}
         if(levelListItem.isGood == null) ivTestQuality.setImageDrawable(null)
         ivTestComplete.setImageResource(if (levelListItem.isDone) R.drawable.ic_autorenew else R.drawable.ic_play_arrow)
-        rootLayout.setOnClickListener { onItemClick(item.levelId) }
+        rootLayout.setOnClickListener { onItemClick(item.levelId, levelName + levelListItem.name) }
     }
 
 }

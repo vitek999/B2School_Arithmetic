@@ -11,7 +11,7 @@ import org.kodein.di.generic.instance
 
 class LevelsListAdapter(
     private val kodein: DKodein,
-    private val onItemClick: (Long) -> Unit
+    private val onItemClick: (Long, String) -> Unit
 ) : RecyclerView.Adapter<ListItemViewHolder>() {
 
     private val items = mutableListOf<ListItem>()
