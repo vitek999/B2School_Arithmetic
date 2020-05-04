@@ -7,6 +7,7 @@ import com.test.b2schoolarithmetic.data.remote.dto.UserTestResultDto
 import com.test.b2schoolarithmetic.data.repository.ExerciseRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import java.util.*
 
 class LevelViewModel(
@@ -17,8 +18,8 @@ class LevelViewModel(
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _isSuccessEvent = MutableLiveData<Event<Unit>>()
-    val isSuccessEvent: LiveData<Event<Unit>> = _isSuccessEvent
+    private val _isSuccessEvent = MutableLiveData<Event<Boolean>>()
+    val isSuccessEvent: LiveData<Event<Boolean>> = _isSuccessEvent
 
     private val questions: MutableList<ExerciseDto> = mutableListOf()
 
@@ -66,10 +67,16 @@ class LevelViewModel(
     private fun sendAnswers() {
         viewModelScope.launch {
             _isLoading.value = true
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
             val result = exerciseRepository.sendResult(
-                UserTestResultDto(answers, "", "", levelId)
+                UserTestResultDto(
+                    answers,
+                    dateFormat.format(Date(endTime)),
+                    dateFormat.format(Date(startTime)),
+                    levelId
+                )
             )
-            if(result is Result.Success) _isSuccessEvent.value = Event(Unit)
+            if (result is Result.Success) _isSuccessEvent.value = Event(_errorsCount.value == 0)
             _isLoading.value = false
         }
     }
@@ -80,7 +87,7 @@ class LevelViewModel(
     }
 
     fun setAnswer(answerId: Long, isCorrect: Boolean) {
-        if(!isCorrect) _errorsCount.value = _errorsCount.value!!.plus(1)
+        if (!isCorrect) _errorsCount.value = _errorsCount.value!!.plus(1)
         answers.add(answerId)
         nextQuestion()
     }

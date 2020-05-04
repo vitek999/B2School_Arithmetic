@@ -65,6 +65,7 @@
             android:text="Вопрос 0 из 6"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/question_card_view"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginStart="16dp"

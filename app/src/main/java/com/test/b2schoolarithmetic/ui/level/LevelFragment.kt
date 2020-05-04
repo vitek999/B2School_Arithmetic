@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.test.b2schoolarithmetic.databinding.LevelFragmentBinding
@@ -51,7 +52,16 @@ class LevelFragment : Fragment(), KodeinAware {
         observeDataLoadedEvent()
         observeCurrentQuestionNumber()
         observeErrorNumber()
+        observeSuccess()
         viewModel.fetchQuestion()
+    }
+
+    private fun observeSuccess() {
+        viewModel.isSuccessEvent.observe(viewLifecycleOwner, Observer {event ->
+            event.getContentIfNotHandled()?.let {
+                findNavController().navigate(LevelFragmentDirections.actionLevelFragmentToResultFragment(it))
+            }
+        })
     }
 
     private fun observeErrorNumber() {
@@ -103,6 +113,10 @@ class LevelFragment : Fragment(), KodeinAware {
         fun hideView(viewState: Boolean): Int = if (viewState) View.GONE else View.VISIBLE
 
         with(binding) {
+            progressTextView.visibility = hideView(state)
+            errorsTextView.visibility = hideView(state)
+            answerButtonsRecyclerView.visibility = hideView(state)
+            questionCardView.visibility = hideView(state)
             progressBar.visibility = hideView(!state)
         }
     }

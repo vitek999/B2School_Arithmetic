@@ -19,4 +19,7 @@
     <string name="field_cant_be_blank">Поле не может быть пустым</string>
     <string name="error_themes_loading">Ошибка загрузки тем</string>
     <string name="arithmetic">Арифметика</string>
+    <string name="good_result">Молодец! \n Всё верно!!!</string>
+    <string name="bad_result">Потренеруйся и попробуй ещё раз!</string>
+    <string name="back_to_menu">Вернуться в меню</string>
 </resources>

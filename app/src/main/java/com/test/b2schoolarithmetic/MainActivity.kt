@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
 
         val destinationsWithHideKeyboard =
-            listOf(R.id.loginFragment, R.id.registrationFragment, R.id.levelFragment)
+            listOf(R.id.loginFragment, R.id.registrationFragment, R.id.levelFragment, R.id.resultFragment)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottom_navigation.visibility =

@@ -42,5 +42,19 @@
         <argument
             android:name="levelTitle"
             app:argType="string" />
+        <action
+            android:id="@+id/action_levelFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.test.b2schoolarithmetic.ui.level.ResultFragment"
+        android:label="ResultFragment"
+        tools:layout="@layout/result_fragment">
+        <argument
+            android:name="result"
+            app:argType="boolean" />
     </fragment>
 </navigation>
