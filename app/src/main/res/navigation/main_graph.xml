@@ -57,4 +57,9 @@
             android:name="result"
             app:argType="boolean" />
     </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.test.b2schoolarithmetic.ui.account.AccountFragment"
+        android:label="AccountFragment"
+        tools:layout="@layout/account_fragment"/>
 </navigation>

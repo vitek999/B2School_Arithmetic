@@ -22,4 +22,6 @@
     <string name="good_result">Молодец! \n Всё верно!!!</string>
     <string name="bad_result">Потренеруйся и попробуй ещё раз!</string>
     <string name="back_to_menu">Вернуться в меню</string>
+    <string name="error_with_account_loading">Ошибка загрузки профиля</string>
+    <string name="find_group">Найти группу</string>
 </resources>

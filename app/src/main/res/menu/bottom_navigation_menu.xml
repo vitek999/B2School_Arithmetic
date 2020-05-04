@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/drugsFragment"
+        android:id="@+id/mainFragment"
         android:title="@string/main_page_menu_title"
         android:icon="@drawable/ic_home"/>
-    <item
-        android:id="@+id/statisticFragment"
-        android:title="@string/statistic_page_menu_title"
-        android:icon="@drawable/ic_trending_up"/>
+<!--    <item-->
+<!--        android:id="@+id/statisticFragment"-->
+<!--        android:title="@string/statistic_page_menu_title"-->
+<!--        android:icon="@drawable/ic_trending_up"/>-->
     <item
         android:id="@+id/accountFragment"
         android:title="@string/account_page_menu_title"
