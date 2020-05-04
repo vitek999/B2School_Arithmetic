@@ -26,5 +26,18 @@
         android:id="@+id/mainFragment"
         android:name="com.test.b2schoolarithmetic.ui.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/main_fragment"/>
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_levelFragment"
+            app:destination="@id/levelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelFragment"
+        android:name="com.test.b2schoolarithmetic.ui.level.LevelFragment"
+        android:label="LevelFragment"
+        tools:layout="@layout/level_fragment">
+        <argument
+            android:name="levelId"
+            app:argType="long" />
+    </fragment>
 </navigation>
