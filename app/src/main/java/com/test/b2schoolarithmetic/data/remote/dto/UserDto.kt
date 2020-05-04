@@ -14,5 +14,8 @@ data class UserDto(
     val lastName: String,
 
     @SerializedName("points")
-    val points: Int
+    val points: Int,
+
+    @SerializedName("classGroupsDto")
+    val classGroupsDto: List<ClassGroupsDto>?
 )

@@ -6,6 +6,7 @@ import com.test.b2schoolarithmetic.data.Result
 import com.test.b2schoolarithmetic.data.remote.dto.UserDto
 import com.test.b2schoolarithmetic.data.repository.UserRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AccountViewModel(private val userRepository: UserRepository) : ViewModel() {
 
@@ -25,6 +26,7 @@ class AccountViewModel(private val userRepository: UserRepository) : ViewModel()
                 is Result.Success -> _user.value = result.data
                 is Result.Error -> _errorEvent.value = Event(R.string.error_with_account_loading)
             }
+            Timber.d(_user.value.toString())
             _isLoading.value = false
         }
     }

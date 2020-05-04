@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.test.b2schoolarithmetic.databinding.AccountFragmentBinding
 import com.test.b2schoolarithmetic.presentation.AccountViewModel
+import com.test.b2schoolarithmetic.ui.account.adapter.GroupAdapter
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.direct
@@ -18,6 +21,7 @@ class AccountFragment : Fragment(), KodeinAware {
     override lateinit var kodein: Kodein
     private lateinit var binding: AccountFragmentBinding
     private val viewModel: AccountViewModel by viewModels { AccountViewModel.Factory(direct.instance()) }
+    private lateinit var adapter: GroupAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +38,9 @@ class AccountFragment : Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupProgressBar()
+        setupGroupsRescyclerView()
         observeUser()
+        observeErrorEvent()
         viewModel.fetchAccountInfo()
     }
 
@@ -49,6 +55,22 @@ class AccountFragment : Fragment(), KodeinAware {
             binding.fioTextView.text = "${it.lastName} ${it.firstName}"
             binding.accountToolbar.title = it.userName
             binding.pointsTextView.text = it.points.toString()
+            binding.textView7.visibility = if(it.classGroupsDto == null) View.GONE else View.VISIBLE
+            it.classGroupsDto?.let { groups -> adapter.updateData(groups) }
+        })
+    }
+
+    private fun setupGroupsRescyclerView() {
+        adapter = GroupAdapter()
+        binding.groupRecyclerView.adapter = adapter
+        binding.groupRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun observeErrorEvent() {
+        viewModel.errorEvent.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+            }
         })
     }
 
@@ -56,6 +78,8 @@ class AccountFragment : Fragment(), KodeinAware {
         fun hideView(viewState: Boolean): Int = if (viewState) View.GONE else View.VISIBLE
 
         with(binding) {
+            textView7.visibility = hideView(state)
+            groupRecyclerView.visibility = hideView(state)
             addButton.visibility = hideView(state)
             imageView3.visibility = hideView(state)
             imageView7.visibility = hideView(state)
