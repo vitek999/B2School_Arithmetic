@@ -24,7 +24,7 @@
         tools:layout="@layout/registration_fragment"/>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.test.b2schoolarithmetic.ui.auth.MainFragment"
+        android:name="com.test.b2schoolarithmetic.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment"/>
 </navigation>
